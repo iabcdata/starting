@@ -19,6 +19,8 @@
         <module>hello</module>
         <module>eureka-registry</module>
         <module>user-service</module>
+        <module>demo-service</module>
+        <module>demo-consumer</module>
     </modules>
 
     <properties>
