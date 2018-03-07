@@ -14,7 +14,7 @@
   * limitations under the License.
   */
 
- package io.iabc.spring.user.service.controller;
+ package io.iabc.spring.eureka.registry.controller;
 
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.cloud.client.discovery.DiscoveryClient;

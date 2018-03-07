@@ -14,8 +14,6 @@ eureka:
     fetch-registry: true 
     healthcheck:
       enabled: true
-#  instance:
-#    hostname: user.iabc.io  
     
 #logging:
 #  level:

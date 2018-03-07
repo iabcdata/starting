@@ -38,7 +38,7 @@
      @Autowired
      private DiscoveryClient discoveryClient;
 
-     @RequestMapping("/service-instances/{applicationName}")
+     @RequestMapping("/instances/{applicationName}")
      public List<ServiceInstance> serviceInstancesByApplicationName(@PathVariable String applicationName) {
          return this.discoveryClient.getInstances(applicationName);
      }
