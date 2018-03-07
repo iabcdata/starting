@@ -16,9 +16,18 @@
 
  package io.iabc.spring.eureka.registry.controller;
 
+ import com.alibaba.fastjson.JSON;
+
+ import java.util.List;
+ import java.util.concurrent.ConcurrentHashMap;
+ import java.util.concurrent.atomic.LongAdder;
+
  import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.cloud.client.ServiceInstance;
  import org.springframework.cloud.client.discovery.DiscoveryClient;
  import org.springframework.web.bind.annotation.GetMapping;
+ import org.springframework.web.bind.annotation.PathVariable;
+ import org.springframework.web.bind.annotation.RequestMapping;
  import org.springframework.web.bind.annotation.RestController;
 
  /**
@@ -34,10 +43,55 @@
      @Autowired
      DiscoveryClient discoveryClient;
 
-     @GetMapping("/dc")
-     public String info() {
+     private ConcurrentHashMap<String, LongAdder> counters = new ConcurrentHashMap<>();
+
+     @GetMapping("/all")
+     public String all() {
          String services = "Services: " + discoveryClient.getServices();
-         System.out.println(services);
          return services;
+     }
+
+     @RequestMapping("/instances/{applicationName}")
+     public String serviceInstancesByApplicationName(@PathVariable String applicationName) {
+         List<ServiceInstance> serviceInstances = this.discoveryClient.getInstances(applicationName);
+
+         return JSON.toJSONString(serviceInstances);
+     }
+
+     @RequestMapping("/instance/{applicationName}")
+     public String getOneServiceInstanceByApplicationName(@PathVariable String applicationName) {
+         List<ServiceInstance> serviceInstances = this.discoveryClient.getInstances(applicationName);
+
+         ServiceInstance serviceInstance = this.selectOneServiceInstance(applicationName, serviceInstances);
+
+         return JSON.toJSONString(serviceInstance);
+     }
+
+     @RequestMapping("/uri/{applicationName}")
+     public String getOneServiceInstanceUriByApplicationName(@PathVariable String applicationName) {
+         List<ServiceInstance> serviceInstances = this.discoveryClient.getInstances(applicationName);
+
+         ServiceInstance serviceInstance = this.selectOneServiceInstance(applicationName, serviceInstances);
+
+         if (serviceInstance != null) {
+             return serviceInstance.getUri().toString();
+         }
+
+         return "null";
+     }
+
+     private ServiceInstance selectOneServiceInstance(String applicationName,
+         final List<ServiceInstance> serviceInstances) {
+         if (serviceInstances != null && serviceInstances.size() > 0) {
+             LongAdder counter = counters.get(applicationName);
+             if (counter == null) {
+                 counter = new LongAdder();
+                 counters.put(applicationName, counter);
+             }
+             counter.increment();
+             return serviceInstances.get(counter.intValue() % serviceInstances.size());
+         }
+
+         return null;
      }
  }
