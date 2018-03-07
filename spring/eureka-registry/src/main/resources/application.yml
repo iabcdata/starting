@@ -12,6 +12,8 @@ eureka:
       defaultZone: http://eureka.iabc.io:1024/eureka/
     register-with-eureka: false
     fetch-registry: false 
+    healthcheck:
+          enabled: true
   instance:
     hostname: eureka.iabc.io  
     

@@ -1,0 +1,25 @@
+server:
+  port: 2000
+spring:
+  application:
+    name: user-service
+    
+eureka:
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+  client:
+    serviceUrl:
+      defaultZone: http://eureka.iabc.io:1024/eureka/
+    register-with-eureka: true
+    fetch-registry: true 
+    healthcheck:
+      enabled: true
+#  instance:
+#    hostname: user.iabc.io  
+    
+#logging:
+#  level:
+#    com:
+#      netflix:
+#        eureka: off
+#        discovery: off 
