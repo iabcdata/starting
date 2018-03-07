@@ -14,12 +14,12 @@
   * limitations under the License.
   */
 
- package io.iabc.spring.demo.service.controller;
+ package io.iabc.spring.demo.consumer.feign;
 
- import org.springframework.web.bind.annotation.PathVariable;
- import org.springframework.web.bind.annotation.RequestMapping;
- import org.springframework.web.bind.annotation.RequestMethod;
- import org.springframework.web.bind.annotation.RestController;
+ import org.springframework.boot.SpringApplication;
+ import org.springframework.boot.autoconfigure.SpringBootApplication;
+ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
  /**
   * Project: spring
@@ -27,18 +27,15 @@
   *
   * @author <a href="mailto:h@iabc.io">shuchen</a>
   * @version V1.0
-  * @since 2018-03-07 18:48
+  * @since 2018-03-07 22:08
   */
- @RestController
- public class DemoController {
-
-     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-     public String hello() {
-         return "hello";
+ @EnableFeignClients
+ @EnableDiscoveryClient
+ @SpringBootApplication
+ public class DemoConsumerFeignApplication {
+     
+     public static void main(String[] args) {
+         SpringApplication.run(DemoConsumerFeignApplication.class, args);
      }
-
-     @RequestMapping(value = "/demo/{index}", method = RequestMethod.GET)
-     public String demo(@PathVariable Long index) {
-         return "demo" + index;
-     }
+     
  }

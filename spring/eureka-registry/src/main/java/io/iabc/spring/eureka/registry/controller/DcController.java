@@ -25,9 +25,9 @@
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.cloud.client.ServiceInstance;
  import org.springframework.cloud.client.discovery.DiscoveryClient;
- import org.springframework.web.bind.annotation.GetMapping;
  import org.springframework.web.bind.annotation.PathVariable;
  import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RequestMethod;
  import org.springframework.web.bind.annotation.RestController;
 
  /**
@@ -45,20 +45,20 @@
 
      private ConcurrentHashMap<String, LongAdder> counters = new ConcurrentHashMap<>();
 
-     @GetMapping("/all")
+     @RequestMapping(value = "/all", method = RequestMethod.GET)
      public String all() {
          String services = "Services: " + discoveryClient.getServices();
          return services;
      }
 
-     @RequestMapping("/instances/{applicationName}")
+     @RequestMapping(value = "/instances/{applicationName}", method = RequestMethod.GET)
      public String serviceInstancesByApplicationName(@PathVariable String applicationName) {
          List<ServiceInstance> serviceInstances = this.discoveryClient.getInstances(applicationName);
 
          return JSON.toJSONString(serviceInstances);
      }
 
-     @RequestMapping("/instance/{applicationName}")
+     @RequestMapping(value = "/instance/{applicationName}", method = RequestMethod.GET)
      public String getOneServiceInstanceByApplicationName(@PathVariable String applicationName) {
          List<ServiceInstance> serviceInstances = this.discoveryClient.getInstances(applicationName);
 
@@ -67,7 +67,7 @@
          return JSON.toJSONString(serviceInstance);
      }
 
-     @RequestMapping("/uri/{applicationName}")
+     @RequestMapping(value = "/uri/{applicationName}", method = RequestMethod.GET)
      public String getOneServiceInstanceUriByApplicationName(@PathVariable String applicationName) {
          List<ServiceInstance> serviceInstances = this.discoveryClient.getInstances(applicationName);
 

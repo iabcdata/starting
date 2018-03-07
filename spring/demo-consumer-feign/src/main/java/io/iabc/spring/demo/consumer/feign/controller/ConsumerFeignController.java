@@ -14,12 +14,16 @@
   * limitations under the License.
   */
 
- package io.iabc.spring.demo.service.controller;
+ package io.iabc.spring.demo.consumer.feign.controller;
+
+ import javax.annotation.Resource;
 
  import org.springframework.web.bind.annotation.PathVariable;
  import org.springframework.web.bind.annotation.RequestMapping;
  import org.springframework.web.bind.annotation.RequestMethod;
  import org.springframework.web.bind.annotation.RestController;
+
+ import io.iabc.spring.demo.consumer.feign.client.DemoServiceClient;
 
  /**
   * Project: spring
@@ -27,18 +31,22 @@
   *
   * @author <a href="mailto:h@iabc.io">shuchen</a>
   * @version V1.0
-  * @since 2018-03-07 18:48
+  * @since 2018-03-07 22:17
   */
  @RestController
- public class DemoController {
+ public class ConsumerFeignController {
 
-     @RequestMapping(value = "/hello", method = RequestMethod.GET)
+     @Resource
+     private DemoServiceClient demoServiceClient;
+
+     @RequestMapping(value = "/consumer/hello", method = RequestMethod.GET)
      public String hello() {
-         return "hello";
+         return demoServiceClient.hello();
      }
 
-     @RequestMapping(value = "/demo/{index}", method = RequestMethod.GET)
+     @RequestMapping(value = "/consumer/demo/{index}", method = RequestMethod.GET)
      public String demo(@PathVariable Long index) {
-         return "demo" + index;
+         return demoServiceClient.demo(index);
      }
+
  }
