@@ -17,6 +17,7 @@
     <modules>
         <module>spring-parent</module>
         <module>hello</module>
+        <module>eureka-registry</module>
     </modules>
 
     <properties>
