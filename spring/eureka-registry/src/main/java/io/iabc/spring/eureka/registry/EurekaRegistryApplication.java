@@ -30,9 +30,9 @@
   */
  @EnableEurekaServer
  @SpringBootApplication
- public class EurekaServerApplication {
+ public class EurekaRegistryApplication {
 
      public static void main(String[] args) {
-         new SpringApplicationBuilder(EurekaServerApplication.class).web(true).run(args);
+         new SpringApplicationBuilder(EurekaRegistryApplication.class).web(true).run(args);
      }
  }

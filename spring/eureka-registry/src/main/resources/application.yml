@@ -13,4 +13,11 @@ eureka:
     register-with-eureka: false
     fetch-registry: false 
   instance:
-    hostname: eureka.iabc.io   
+    hostname: eureka.iabc.io  
+    
+logging:
+  level:
+    com:
+      netflix:
+        eureka: off
+        discovery: off 
