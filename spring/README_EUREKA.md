@@ -65,10 +65,9 @@ demo-consumer-feign:服务消费者,通过feign客户端进行消费
 demo-consumer-ribbon:服务消费者,通过RestTemplate进行轮询消费
 
 ```
-***`管理后台`*** : http://eureka.iabc.io:1024
 
 
-##### 2.1  配置文件
+##### 2.1  配置
 
 
 2.1.1 单机配置application.yml
@@ -101,6 +100,10 @@ logging:
         discovery: off 
 
 ```
+
+***`单机版管理后台`*** : 
+
+http://eureka.iabc.io:1024
 
 
 2.1.2 单机配置application.properties
@@ -220,12 +223,22 @@ java -jar eureka-registry-cloud-1.0.0-SNAPSHOT.jar --spring.profiles.active=eure
 java -jar eureka-registry-cloud-1.0.0-SNAPSHOT.jar --spring.profiles.active=eurekahost3
 ```
 
+***`集群版管理后台`*** : 
+
+http://eurekahost1:1111
+
+http://eurekahost2:1112
+
+http://eurekahost3:1113
+
 -------
 
 
 #### 三、与同类产品比较
 
-***Consul vs Zookeeper vs Etcd vs Eureka服务发现比较*** : https://luyiisme.github.io/2017/04/22/spring-cloud-service-discovery-products/
+***Consul vs Zookeeper vs Etcd vs Eureka服务发现比较*** : 
+
+https://luyiisme.github.io/2017/04/22/spring-cloud-service-discovery-products/
 
 #### 四、一些注意问题
 
