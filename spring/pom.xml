@@ -23,6 +23,7 @@
         <module>demo-consumer</module>
         <module>demo-consumer-feign</module>
         <module>demo-consumer-ribbon</module>
+        <module>eureka-registry-cloud</module>
     </modules>
 
     <properties>
